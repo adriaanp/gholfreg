@@ -30,6 +30,8 @@ namespace GholfReg
 				options.ClientSecret = "UVFxh_qchMlJChdYBq2-ukhu";
 			});
 			services.AddMvc();
+
+			//inject other services??
 		}
 
 		public void Configure(IApplicationBuilder app)
@@ -41,15 +43,15 @@ namespace GholfReg
 				//	options.LoginPath = new PathString("/login");
 				//})
 				.UseGoogleAuthentication()
-				//.UseMvc(routes =>
-				//{
-				//	routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
-				//	//api routes
-				//	routes.MapRoute("ApiRoute", "{controller}/{id?}");
-				//});
+				.UseMvc(routes =>
+				{
+					routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
+					//api routes
+					routes.MapRoute("ApiRoute", "{controller}/{id?}");
+				});
 			;
 
-			app.Map("/login", signoutApp =>
+			/*app.Map("/login", signoutApp =>
             {
                 signoutApp.Run(async context =>
                 {
@@ -109,7 +111,7 @@ namespace GholfReg
                 }
                 await context.Response.WriteAsync("<a href=\"/logout\">Logout</a>");
                 await context.Response.WriteAsync("</body></html>");
-            });
+            });*/
 			//app.UseWelcomePage();
 		}
 	}
