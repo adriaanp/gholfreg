@@ -8,10 +8,23 @@ using System.Threading.Tasks;
 
 namespace GholfReg.Controllers
 {
+	public class GolfdayViewModel
+	{
+		public string Name {get; set;}
+		public string Date {get; set;}
+	}
+
 	public class HomeController: Controller
 	{
-		public IActionResult Index()
+		public async IActionResult Index()
 		{
+			using (var client = new MyCouchClient("http://localhost:5984/golfreg"))
+			{
+				//var qry = new Query("golfDays");
+				var list = await client.Views.QueryAsync<GolfdayViewModel>(new QueryViewRequest("golfDays"));
+				list.Rows[0].Value;
+
+			}
 			return View();
 		}
 

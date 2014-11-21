@@ -1,0 +1,406 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Use",
+				"UseOAuthAuthentication(	IApplicationBuilder UseOAuthAuthentication(string authenticationType, Action<OAuthAuthenticationOptions<IOAuthAuthenticationNotifications>> configureOptions = null)"
+			],
+			[
+				"AddScop",
+				"AddScoped(	IServiceCollection AddScoped(Type serviceType)"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/project.json",
+			"settings":
+			{
+				"buffer_size": 571,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Startup.cs",
+			"settings":
+			{
+				"buffer_size": 4485,
+				"line_ending": "Windows",
+				"name": "Startup.cs"
+			}
+		},
+		{
+			"file": "src/Views/Home/Index.cshtml",
+			"settings":
+			{
+				"buffer_size": 115,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Controllers/HomeController.cs",
+			"settings":
+			{
+				"buffer_size": 1081,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Views/Home/Create.cshtml",
+			"settings":
+			{
+				"buffer_size": 163,
+				"line_ending": "Windows",
+				"name": "Create.cshtml"
+			}
+		}
+	],
+	"build_system": "Packages/Kulture/ASP.NET.sublime-build",
+	"command_palette":
+	{
+		"height": 58.0,
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"k",
+				"Run K Commands"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 243.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Adriaan/aspnet/gholfreg",
+		"/C/Users/Adriaan/aspnet/gholfreg/src",
+		"/C/Users/Adriaan/aspnet/gholfreg/src/Controllers",
+		"/C/Users/Adriaan/aspnet/gholfreg/src/Views",
+		"/C/Users/Adriaan/aspnet/gholfreg/src/Views/Home"
+	],
+	"file_history":
+	[
+		"/C/Users/Adriaan/aspnet/gholfreg/src/bin/output/approot/src/src/Controllers/HomeController.cs",
+		"/C/Users/Adriaan/aspnet/gholfreg/gholfreg.sublime-project",
+		"/C/Users/Adriaan/gholfreg.sublime-project",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/launchers/omni_sharp_launcher.py",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/OmniSharpSublime.sublime-settings",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/lib/omnisharp.py",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/lib/helpers.py",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/build.sh",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/package-metadata.json",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/messages.json",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/OmniSharpSublime.py",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/PrebuiltOmniSharpServer/config.json",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/Default.sublime-keymap",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/User/C#.sublime-settings",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/User/Plain text.sublime-settings",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/Adriaan/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/C/Users/Adriaan/aspnet/gholfreg/NuGet.Config",
+		"/C/Users/Adriaan/aspnet/Home/NuGet.Config",
+		"/C/Users/Adriaan/aspnet/gholfreg/global.json",
+		"/C/Users/Adriaan/aspnet/gholfreg/src/Controllers/HomeController.cs",
+		"/C/Users/Adriaan/aspnet/gholfreg/src/Views/Home/Index.cshtml",
+		"/C/Users/Adriaan/aspnet/gholfreg/src/Views/Index.cshtml",
+		"/C/Users/Adriaan/aspnet/gholfreg/.gitignore",
+		"/C/Users/Adriaan/aspnet/gholfreg/build.cmd",
+		"/C/Users/Adriaan/aspnet/gholfreg/src/project.json",
+		"/C/Users/Adriaan/aspnet/gholfreg/project.json"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"current_solution_or_folder",
+			"RAISE_OMNI_SHARP_LAUNCHER_EXCEPTION"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/project.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 571,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								416,
+								416
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/Startup.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4485,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1040,
+								1040
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Startup.cs",
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Views/Home/Index.cshtml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 115,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								115
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/Controllers/HomeController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1081,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								593,
+								593
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 45.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/Views/Home/Create.cshtml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 163,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								34,
+								34
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Create.cshtml",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.variable_get":
+	{
+		"height": 100.0
+	},
+	"project": "gholfreg.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
