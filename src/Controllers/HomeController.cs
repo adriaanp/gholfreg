@@ -2,8 +2,8 @@ using Microsoft.AspNet.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MyCouch;
-using MyCouch.Requests;
+//using MyCouch;
+//using MyCouch.Requests;
 using System.Threading.Tasks;
 
 namespace GholfReg.Controllers
@@ -16,18 +16,19 @@ namespace GholfReg.Controllers
 
 	public class HomeController: Controller
 	{
-		public async IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			using (var client = new MyCouchClient("http://localhost:5984/golfreg"))
+			/*using (var client = new MyCouchClient("http://localhost:5984/golfreg"))
 			{
 				//var qry = new Query("golfDays");
 				var list = await client.Views.QueryAsync<GolfdayViewModel>(new QueryViewRequest("golfDays"));
 				list.Rows[0].Value;
 
-			}
+			}*/
 			return View();
 		}
 
+/*
 		public async Task<IActionResult> Create()
 		{
 			using (var client = new MyCouchClient("http://localhost:5984/test"))
@@ -47,7 +48,7 @@ namespace GholfReg.Controllers
 				var person = await client.Entities.GetAsync<Person>("persons/1");
 				return View("Create", person.Content);
 			}
-		}
+		}*/
 	}
 
 	public class Person

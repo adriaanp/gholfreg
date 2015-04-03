@@ -9,3 +9,6 @@ artifacts/
 *.userprefs
 *DS_Store
 *.sln.ide
+*.lock.json
+node_modules
+src/wwwroot/lib

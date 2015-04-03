@@ -2,20 +2,28 @@
 	"description": "Gholf registrasies",
 	"version": "1.0.0-*",
 	"webroot": "wwwroot",
+	"exclude": [
+		"wwwroot",
+		"node_modules"
+	],
 	"dependencies": {
-		"Kestrel": "1.0.0-*",
-		"Microsoft.AspNet.Hosting": "1.0.0-*",
-		"Microsoft.AspNet.Mvc": "6.0.0-*",
-		"Microsoft.AspNet.Security.Cookies": "1.0.0-*",
-		"Microsoft.AspNet.Security.Google": "1.0.0-*",
-		"Microsoft.AspNet.StaticFiles": "1.0.0-*",
-		"Microsoft.AspNet.Diagnostics": "1.0.0-*",
+		"Kestrel": "1.0.0-beta4",
+		"Microsoft.AspNet.Hosting": "1.0.0-beta4",
+		"Microsoft.AspNet.Mvc": "6.0.0-beta4",
+		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta4",
+		"Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
+		"Microsoft.AspNet.Authentication.Cookies": "1.0.0-beta4",
+		"Microsoft.AspNet.Authentication.Google" : "1.0.0-beta4",
+		"Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
+		"Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
 		"MyCouch": "2.6.0"
 	},
 	"commands": {
+		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5002",
 		"kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:5001"
 	},
 	"frameworks": {
-		"aspnet50": {}
+		"dnx451": {},
+		"dnxcore50": {}
 	}
 }
