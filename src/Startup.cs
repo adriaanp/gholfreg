@@ -31,18 +31,18 @@ namespace GholfReg
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-            services.AddDataProtection();
-            services.Configure<ExternalAuthenticationOptions>(options =>
-            {
-                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            });
-            services.ConfigureClaimsTransformation(p =>
-            {
-                var id = new ClaimsIdentity("xform");
-                id.AddClaim(new Claim("ClaimsTransformation", "TransformAddedClaim"));
-                p.AddIdentity(id);
-                return p;
-            });
+            // services.AddDataProtection();
+            // services.Configure<ExternalAuthenticationOptions>(options =>
+            // {
+            //     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            // });
+            // services.ConfigureClaimsTransformation(p =>
+            // {
+            //     var id = new ClaimsIdentity("xform");
+            //     id.AddClaim(new Claim("ClaimsTransformation", "TransformAddedClaim"));
+            //     p.AddIdentity(id);
+            //     return p;
+            // });
 
             services.AddMvc();
         }

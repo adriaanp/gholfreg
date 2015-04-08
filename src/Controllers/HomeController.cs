@@ -28,6 +28,21 @@ namespace GholfReg.Controllers
 			return View();
 		}
 
+        public string Test()
+        {
+            return "Test";
+        }
+
+        public IActionResult Test2()
+        {
+            return View("Index");
+        }
+
+        public object Test3()
+        {
+            return new {Name = "adriaan"};
+        }
+
 /*
 		public async Task<IActionResult> Create()
 		{
