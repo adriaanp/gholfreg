@@ -11,4 +11,5 @@ artifacts/
 *.sln.ide
 *.lock.json
 node_modules
+bower_components
 src/wwwroot/lib

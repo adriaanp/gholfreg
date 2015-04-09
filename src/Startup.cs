@@ -52,7 +52,8 @@ namespace GholfReg
                 app.UseErrorPage();
 
                 //SetupAuth(app);
-
+                app.UseStaticFiles();
+                
                 app.UseMvc(routes =>
                 {
                     routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
