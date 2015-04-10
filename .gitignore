@@ -12,4 +12,4 @@ artifacts/
 *.lock.json
 node_modules
 bower_components
-src/wwwroot/lib
+**/*/wwwroot/lib

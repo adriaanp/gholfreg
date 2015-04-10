@@ -1,0 +1,10 @@
+{
+    "version": "1.0.0-*",
+    "description": "Domain logic library",
+    "dependencies" : {
+    },
+    "frameworks" : {
+        "dnx451": { },
+        "dnxcore50": { }
+    }
+}
