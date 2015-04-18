@@ -1,8 +1,17 @@
+import {HttpClient} from 'aurelia-http-client';
+import {inject} from 'aurelia-framework';
+
+@inject(HttpClient)
 export class ListDays {
-    constructor() {
-        this.days = [
-            { id: 1, name: 'GK Brackenhof 2015', date: new Date(), fourBalls: 5 },
-            { id: 2, name: 'EOH Golf day 2015', date: new Date(), fourBalls: 14 }
-            ];
+    constructor(http) {
+        this.http = http;
     }
+
+    activate() {
+        return this.http.get('/api/day')
+        .then(response => { 
+            this.days = response.content; 
+        });
+    }
+
 };

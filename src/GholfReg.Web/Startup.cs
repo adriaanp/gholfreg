@@ -14,6 +14,9 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Http.Authentication;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNet.Mvc;
+using Newtonsoft.Json.Serialization;
+using System.Linq;
 
 using ds = GholfReg.Domain.Services;
 
@@ -47,7 +50,18 @@ namespace GholfReg.Web
 
             services.AddMvc();
 
+            services.Configure<MvcOptions>(options => {
+                var outFormatter = options.OutputFormatters.First(form => form is JsonOutputFormatter) as JsonOutputFormatter ;
+                outFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                var inputFormatter = options.InputFormatters.First(form => form is JsonInputFormatter) as JsonInputFormatter;
+                inputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+
             services.AddSingleton<ds.ISession, ds.Session>();
+            //seeding a few lines
+            var session = new ds.Session();
+            session.Save(new GholfReg.Domain.GolfDay() { Name = "GK Brackenhof", Date = new DateTime(2015,05,07), Description = "ons kerk se gholf dag"});
+            session.Save(new GholfReg.Domain.GolfDay() { Name = "EOH Golf day", Date = new DateTime(2015,05,17), Description = "ons werk se gholf dag"});
         }
 
         public void Configure(IApplicationBuilder app)

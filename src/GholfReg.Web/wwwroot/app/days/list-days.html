@@ -1,7 +1,7 @@
 <template>
     <h1>Here comes the golf days</h1>
     <ul repeat.for="day of days">
-        <li>${day.name}</li>
+        <li>${day.name} (${day.description}) - ${day.date | dateFormat} -> Edit : Delete</li>
     </ul>
     <div>
         <a href="#/days/add">Add Golf day</button>

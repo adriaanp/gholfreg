@@ -7,7 +7,7 @@ namespace GholfReg.Domain.Services
 {
     public class Session : ISession
     {
-        private readonly List<object> _items = new List<object>();
+        private static readonly List<object> _items = new List<object>();
 
         public T Get<T>(Guid id)
         {
