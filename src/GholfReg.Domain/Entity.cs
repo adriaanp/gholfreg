@@ -44,6 +44,6 @@ namespace GholfReg.Domain
         {
             return !(e1 == e2);
         }
-        
+
     }
 }

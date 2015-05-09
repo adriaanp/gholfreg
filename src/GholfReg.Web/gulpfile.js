@@ -116,7 +116,7 @@ gulp.task('wiredep', ['copy:lib'], function() {
             replace: {
                 js: '<script src="~/lib{{filePath}}"></script>',
                 css: '<link rel="stylesheet" href="~/lib{{filePath}}" />'
-            }   
+            }
         }
     },
     };

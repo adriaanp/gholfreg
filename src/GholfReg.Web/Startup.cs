@@ -1,11 +1,7 @@
-using System;
 using Microsoft.AspNet.Builder;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.ConfigurationModel;
-
-using Microsoft.AspNet.Routing;
-
-using System.Security.Claims;
+using Microsoft.Framework.Runtime;
 using Microsoft.AspNet.Authentication;
 using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.AspNet.Authentication.Google;
@@ -17,8 +13,10 @@ using Newtonsoft.Json.Linq;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
-
+using Microsoft.Framework.Logging;
+using Microsoft.AspNet.Diagnostics;
 using ds = GholfReg.Domain.Services;
+using System;
 
 namespace GholfReg.Web
 {
@@ -26,9 +24,9 @@ namespace GholfReg.Web
     {
         public IConfiguration Configuration { get; set; }
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IApplicationEnvironment env, IRuntimeEnvironment runtimeEnvironment)
         {
-            Configuration = new Configuration()
+            Configuration = new Configuration(env.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
         }
@@ -58,19 +56,17 @@ namespace GholfReg.Web
             });
 
             services.AddSingleton<ds.ISession, ds.Session>();
-            //seeding a few lines
-            var session = new ds.Session();
-            session.Save(new GholfReg.Domain.GolfDay() { Name = "GK Brackenhof", Date = new DateTime(2015,05,07), Description = "ons kerk se gholf dag"});
-            session.Save(new GholfReg.Domain.GolfDay() { Name = "EOH Golf day", Date = new DateTime(2015,05,17), Description = "ons werk se gholf dag"});
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
+            var log = loggerFactory.AddConsole(LogLevel.Debug);
+
             app.UseErrorPage();
 
             //SetupAuth(app);
             app.UseStaticFiles();
-                
+
             // app.UseMvc(routes =>
             // {
             //     routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
@@ -78,7 +74,6 @@ namespace GholfReg.Web
             //     //routes.MapRoute("ApiRoute", "{controller}/{id?}");
             // });
             app.UseMvc();
-
         }
 
         public void SetupAuth(IApplicationBuilder app)
@@ -116,14 +111,17 @@ namespace GholfReg.Web
                             {
                                 // By default the client will be redirect back to the URL that issued the challenge (/login?authtype=foo),
                                 // send them to the home page instead (/).
-                                context.Response.Challenge(new AuthenticationProperties() { RedirectUri = "/" }, authType);
+                                //TODO: changed from beta3
+                                context.Authentication.Challenge(new AuthenticationProperties() { RedirectUri = "/" });
+                                //context.Response.Challenge(new AuthenticationProperties() { RedirectUri = "/" }, authType);
                                 return;
                             }
 
                             context.Response.ContentType = "text/html";
                             await context.Response.WriteAsync("<html><body>");
                             await context.Response.WriteAsync("Choose an authentication scheme: <br>");
-                            foreach (var type in context.GetAuthenticationSchemes())
+                            //TODO: changed from beta3
+                            foreach (var type in context.Authentication.GetAuthenticationSchemes())
                             {
                                 await context.Response.WriteAsync("<a href=\"?authscheme=" + type.AuthenticationScheme + "\">" + (type.Caption ?? "(suppressed)") + "</a><br>");
                             }
@@ -136,7 +134,7 @@ namespace GholfReg.Web
                 {
                     signoutApp.Run(async context =>
                         {
-                            context.Response.SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
+                            context.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
                             context.Response.ContentType = "text/html";
                             await context.Response.WriteAsync("<html><body>");
                             await context.Response.WriteAsync("You have been logged out. Goodbye " + context.User.Identity.Name + "<br>");
@@ -151,7 +149,7 @@ namespace GholfReg.Web
                     if (!context.User.Identity.IsAuthenticated)
                     {
                         // The cookie middleware will intercept this 401 and redirect to /login
-                        context.Response.Challenge();
+                        context.Authentication.Challenge();
                         return;
                     }
                     await next();
