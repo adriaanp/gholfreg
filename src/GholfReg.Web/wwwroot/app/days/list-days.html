@@ -1,9 +1,23 @@
 <template>
-    <h1>Here comes the golf days</h1>
-    <ul repeat.for="day of days">
-        <li>${day.name} (${day.description}) - ${day.date | dateFormat} -> Edit : Delete</li>
-    </ul>
-    <div>
-        <a href="#/days/add">Add Golf day</button>
-    </div>
+    <h1>Your golf days:</h1>
+    <table class="table">
+        <thead>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr repeat.for="day of days">
+                <td>${day.name}</td>
+                <td>${day.description}</td>
+                <td>${day.date | dateFormat}</td>
+                <td>
+                    <a href="#/days/edit/${day.id}" class="fa fa-pencil-square-o"></a>
+                    <a href="#" click.trigger="delete(day.id)" class="fa fa-trash"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#/days/add" class="btn btn-primary">Add Golf day</a>
 </template>

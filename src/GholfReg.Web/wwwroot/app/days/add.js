@@ -17,6 +17,10 @@ export class Add {
 
     get hasError () { return this._error; }
 
+    get canSave() {
+        return this.day.name && !this.api.isRequesting;
+    }
+
     save() {
         this._error = false;
         if (this.day.name.length == 0) {
