@@ -1,16 +1,16 @@
-import {HttpClient} from 'aurelia-http-client';
 import {inject} from 'aurelia-framework';
+import Api from 'api';
 
-@inject(HttpClient)
+@inject(Api)
 export class ListDays {
-    constructor(http) {
-        this.http = http;
+    constructor(api) {
+        this.api = api;
     }
 
     activate() {
-        return this.http.get('/api/day')
-        .then(response => { 
-            this.days = response.content; 
+        return this.api.getGolfDays()
+        .then(days => {
+            this.days = days;
         });
     }
 

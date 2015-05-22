@@ -10,11 +10,8 @@ namespace GholfReg.Web.Controllers
     [Route("/api")]
     public class GholfController: BaseController
     {
-        private ILogger _logger;
-
-        public GholfController(ILoggerFactory logFactory)
+        public GholfController()
         {
-            _logger = logFactory.CreateLogger("GholfController");
         }
 
         [HttpGet("day")]
@@ -35,38 +32,31 @@ namespace GholfReg.Web.Controllers
         }
 
         [HttpPost("day")]
-        public void SaveGolfDay([FromBody] GolfDay golfDay)
+        public IActionResult SaveGolfDay([FromBody] GolfDay golfDay)
         {
             //TODO: check of ModelState.IsValid
             if (golfDay == null)
             {
-                Context.Response.StatusCode = 400;
-                return;
+                return HttpBadRequest();
             }
-            //have to check golfDay.Id
-            _logger.LogDebug(golfDay.Id.ToString());
-            MockData.GolfDays.Add(golfDay);
-            string url = Url.RouteUrl("GetGolfDay", new {id = golfDay.Id},
-                Request.Scheme, Request.Host.ToUriComponent());
 
-            Context.Response.StatusCode = 201;
-            Context.Response.Headers["Location"] = url;
+            MockData.GolfDays.Add(golfDay);
+            return CreatedAtAction("SaveGolfDay", golfDay.Id);
         }
 
         [HttpPut("day/{id:Guid}")]
-        public void SaveGolfDay(Guid id, [FromBody] GolfDay golfDay)
+        public IActionResult SaveGolfDay(Guid id, [FromBody] GolfDay golfDay)
         {
             var dbDay = MockData.GolfDays.FirstOrDefault(x => x.Id == id);
             if (dbDay == null)
             {
-                Context.Response.StatusCode = 400;
-                return;
+                return HttpNotFound();
             }
 
             MockData.GolfDays.Remove(dbDay);
             golfDay.Id = dbDay.Id;
             MockData.GolfDays.Add(golfDay);
-            Context.Response.StatusCode = 201;
+            return new NoContentResult();
         }
 
         [HttpDelete("day/{id:Guid}")]
@@ -78,7 +68,7 @@ namespace GholfReg.Web.Controllers
                 return HttpNotFound();
             }
             MockData.GolfDays.Remove(day);
-            return new HttpStatusCodeResult(204);
+            return new NoContentResult();
         }
     }
 }
