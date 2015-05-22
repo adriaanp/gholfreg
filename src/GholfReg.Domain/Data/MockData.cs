@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace GholfReg.Domain.Data
 {
@@ -9,7 +10,7 @@ namespace GholfReg.Domain.Data
 
         static MockData()
         {
-            GolfDays.Add(new GolfDay() { Name = "GK Brackenhof", Date = new DateTime(2015,05,07), Description = "ons kerk se gholf dag"});
+            GolfDays.Add(new GolfDay() { Name = "GK Brackenhof", Date = new DateTime(2015, 05, 07), Description = "ons kerk se gholf dag" });
         }
     }
 }

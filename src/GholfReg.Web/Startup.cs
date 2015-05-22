@@ -24,9 +24,11 @@ namespace GholfReg.Web
     {
         public IConfiguration Configuration { get; set; }
 
-        public Startup(IApplicationEnvironment env, IRuntimeEnvironment runtimeEnvironment)
+        private ILogger _logger;
+
+        public Startup(IApplicationEnvironment env)
         {
-            Configuration = new Configuration(env.ApplicationBasePath)
+            Configuration = new Configuration()//(env.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
         }
@@ -48,10 +50,17 @@ namespace GholfReg.Web
 
             services.AddMvc();
 
+
             services.Configure<MvcOptions>(options => {
-                var outFormatter = options.OutputFormatters.First(form => form is JsonOutputFormatter) as JsonOutputFormatter ;
+                _logger.LogInformation(options.OutputFormatters.Count.ToString());
+
+                foreach(var formatter in options.OutputFormatters.Take(1))
+                {
+                    _logger.LogInformation(formatter.OptionType.AssemblyQualifiedName);
+                }
+                var outFormatter = options.OutputFormatters.First(x => x.OptionType == typeof(JsonOutputFormatter)).Instance as JsonOutputFormatter;
                 outFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                var inputFormatter = options.InputFormatters.First(form => form is JsonInputFormatter) as JsonInputFormatter;
+                var inputFormatter = options.InputFormatters.First(x => x.OptionType ==  typeof(JsonInputFormatter)).Instance as JsonInputFormatter;
                 inputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
@@ -60,7 +69,8 @@ namespace GholfReg.Web
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            var log = loggerFactory.AddConsole(LogLevel.Debug);
+            loggerFactory.AddConsole(LogLevel.Debug);
+            _logger = loggerFactory.CreateLogger<Startup>();
 
             app.UseErrorPage();
 
@@ -112,8 +122,8 @@ namespace GholfReg.Web
                                 // By default the client will be redirect back to the URL that issued the challenge (/login?authtype=foo),
                                 // send them to the home page instead (/).
                                 //TODO: changed from beta3
-                                context.Authentication.Challenge(new AuthenticationProperties() { RedirectUri = "/" });
-                                //context.Response.Challenge(new AuthenticationProperties() { RedirectUri = "/" }, authType);
+                                //context.Authentication.Challenge(new AuthenticationProperties() { RedirectUri = "/" });
+                                context.Response.Challenge(new AuthenticationProperties() { RedirectUri = "/" }, authType);
                                 return;
                             }
 
@@ -121,10 +131,10 @@ namespace GholfReg.Web
                             await context.Response.WriteAsync("<html><body>");
                             await context.Response.WriteAsync("Choose an authentication scheme: <br>");
                             //TODO: changed from beta3
-                            foreach (var type in context.Authentication.GetAuthenticationSchemes())
-                            {
-                                await context.Response.WriteAsync("<a href=\"?authscheme=" + type.AuthenticationScheme + "\">" + (type.Caption ?? "(suppressed)") + "</a><br>");
-                            }
+                            // foreach (var type in context.Response.GetAuthenticationSchemes())
+                            // {
+                            //     await context.Response.WriteAsync("<a href=\"?authscheme=" + type.AuthenticationScheme + "\">" + (type.Caption ?? "(suppressed)") + "</a><br>");
+                            // }
                             await context.Response.WriteAsync("</body></html>");
                         });
                 });
@@ -134,7 +144,7 @@ namespace GholfReg.Web
                 {
                     signoutApp.Run(async context =>
                         {
-                            context.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
+                            //context.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
                             context.Response.ContentType = "text/html";
                             await context.Response.WriteAsync("<html><body>");
                             await context.Response.WriteAsync("You have been logged out. Goodbye " + context.User.Identity.Name + "<br>");
@@ -149,7 +159,7 @@ namespace GholfReg.Web
                     if (!context.User.Identity.IsAuthenticated)
                     {
                         // The cookie middleware will intercept this 401 and redirect to /login
-                        context.Authentication.Challenge();
+                        //context.Authentication.Challenge();
                         return;
                     }
                     await next();

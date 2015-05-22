@@ -1,5 +1,5 @@
 using Xunit;
-using Gholfreg.Domain;
+using GholfReg.Domain;
 using System;
 
 namespace GholfReg.Domain.Tests

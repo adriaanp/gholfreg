@@ -18,7 +18,7 @@ namespace GholfReg.Controllers
     public class HomeController: Controller
     {
         [Route("/")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             /*using (var client = new MyCouchClient("http://localhost:5984/golfreg"))
             {
