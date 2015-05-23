@@ -28,7 +28,7 @@ export class Add {
             return;
         }
 
-        this.api.createGolfDay(this.day);
-        this.router.navigate('/');
+        this.api.createGolfDay(this.day)
+        .then(() => this.router.navigate('/'));
     }
 };

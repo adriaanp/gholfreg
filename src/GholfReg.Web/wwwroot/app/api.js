@@ -49,4 +49,13 @@ export default class Api {
                 this.isRequesting = false;
             });
     }
+
+    deleteGolfDay(id) {
+        this.isRequesting = true;
+        return this.http.delete(`/api/day/${id}`)
+        .then(response => {
+            this.isRequesting = false;
+            return response;
+        });
+    }
 }

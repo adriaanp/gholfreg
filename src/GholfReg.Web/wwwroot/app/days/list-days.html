@@ -14,7 +14,7 @@
                 <td>${day.date | dateFormat}</td>
                 <td>
                     <a href="#/days/edit/${day.id}" class="fa fa-pencil-square-o"></a>
-                    <a href="#" click.trigger="delete(day.id)" class="fa fa-trash"></a>
+                    <a href="#" click.trigger="$parent.delete(day.id)" class="fa fa-trash"></a>
                 </td>
             </tr>
         </tbody>
