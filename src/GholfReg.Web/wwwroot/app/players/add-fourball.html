@@ -1,0 +1,35 @@
+<template>
+    <h2>Golf day ${day.name}</h2>
+    <h3>${day.date | dateFormat}</h3>
+    <h2>Add fourball</h2>
+    <form>
+        <div class="form-group ${hasError ? 'has-error' : ''}">
+            <label for="primaryContact">Primary Contact:</label>
+            <input type="text" class="form-control" value.bind="fourball.primaryContact" />
+        </div>
+        <div class="form-group">
+            <label for="contactNumber">Contact Number:</label>
+            <input type="text" class="form-control" value.bind="fourball.contactNumber" />
+        </div>
+        <div class="form-group">
+            <label for="contactEmail">Email:</label>
+            <input type="email" class="form-control" valud.bind="fourball.contactEmail" />
+        </div>
+        <ul>
+            <li repeat.for="player of fourball.players">${player.name} (HC: ${player.handicap}) <button type="button" class="close" aria-label="Close" click.trigger="$parent.removePlayer(player)"><span aria-hidden="true">&times;</span></button></li>
+        </ul>
+        <fieldset>
+            <legend>Player</legend>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" value.bind="currentPlayer.name" />
+            </div>
+            <div class="form-group">
+                <label for="handicap">Handicap:</label>
+                <input type="text" value.bind="currentPlayer.handicap" />
+            </div>
+            <button type="button" class="btn btn-success" click.trigger="addPlayer()" disabled.bind="!canAddPlayer">Add Player</button>
+        </fieldset>
+        <button type="submit" class="btn btn-primary" click.trigger="save()" disabled.bind="!canSave">Add fourball</button>
+    </form>
+</template>

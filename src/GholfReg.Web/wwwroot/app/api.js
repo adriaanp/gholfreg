@@ -77,4 +77,16 @@ export default class Api {
             return response.content;
         });
     }
+
+    addFourball(id, fourball) {
+        this.isRequesting = true;
+        return this.http.createRequest(`/api/players/${id}`)
+            .withHeader('Content-Type', 'application/json')
+            .asPost()
+            .withContent(fourball)
+            .send()
+            .then(response => {
+                this.isRequesting = false;
+            });
+    }
 }
