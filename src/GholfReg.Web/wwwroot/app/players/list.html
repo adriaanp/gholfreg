@@ -1,0 +1,24 @@
+<template>
+    <h2>Golf day ${day.name}</h2>
+    <h3>${day.date | dateFormat}</h3>
+    <table class="table">
+        <thead>
+            <th>Primary Contact</th>
+            <th>Contact Number</th>
+            <th>Players</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr repeat.for="fourball of fourballs">
+                <td>${fourball.primaryContact}</td>
+                <td>${fourball.contactNumber}</td>
+                <td>${fourball.players | concatArray: 'name'}</td>
+                <td>
+                    <a href="#/players/edit/${fourball.id}" class="fa fa-pencil-square-o"></a>
+                    <a href="#" click.trigger="$parent.delete(fourball.id)" class="fa fa-trash"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#/players/add/${day.id}" class="btn btn-primary">Register new fourball</a>
+</template>

@@ -58,4 +58,23 @@ export default class Api {
             return response;
         });
     }
+
+    getFourballs(id) {
+        return [{
+            primaryContact: 'Primary Contact',
+            contactNumber : '123-3456',
+            players: [
+                { name: 'Player 1', handicap: 24},
+                { name: 'Player 2', handicap: 14},
+                { name: 'Player 3', handicap: 17},
+                { name: 'Player 4', handicap: 18}
+                ]
+        }];
+        this.isRequesting = true;
+        return this.http.get(`/api/fourballs/${id}`)
+        .then(response => {
+            this.isRequesting = false;
+            return response.content;
+        });
+    }
 }
