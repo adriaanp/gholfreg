@@ -26,7 +26,7 @@
 		"Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
 		"Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
 		"Microsoft.Framework.Logging.Console": "1.0.0-beta4",
-		"GholfReg.Domain": "1.0.0-beta4"
+		"GholfReg.Domain": "1.0.0-*"
 	},
 	"commands": {
 		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5002",

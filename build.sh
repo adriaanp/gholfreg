@@ -14,4 +14,4 @@ dnvm use 1.0.0-beta4
 dnu publish src/GholfReg.Web --no-source --out artifacts/build/gholfreg --runtime dnx-mono.1.0.0-beta4 2>&1
 # work around for kpm bundle returning an exit code 0 on failure
 #grep "Build failed" buildlog
-rc=$?; if [[ $rc == 0 ]]; then exit 1; fi
+#rc=$?; if [[ $rc == 0 ]]; then exit 1; fi
