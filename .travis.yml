@@ -3,10 +3,13 @@ mono:
   - 3.12.0
 node_js:
   - 0.12.2
-sudo: false  # use the new container-based infrastructure
+sudo: false
 before_install:
   - npm install -g jspm
   - jspm config endpoints.github.auth $GH_TOKEN
 install: curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | sh && source ~/.dnx/dnvm/dnvm.sh && dnvm upgrade
 script:
   - . ./build.sh
+env:
+  global:
+  - secure: N9x/CxB+PhbaMuluNAHcm/eumYp0ibrebOhsgtfCb2aMzgFWzrZfKprFa/ic2kCSDUHjeLpKdVWiPuNA5RHIgMyLsGgbkwl3OIuCRHsFeDDuJ0bqCbxSGmNh/y3EG2TWNURz2kUSxdWBXxeC+/ahdHf2G2niJWe5IseeuaxJikqgxvtbp6auwX3L6AkdKaA37oZopySHbQjk2zSJ6OSQZ10hAGi7af8xhema16hWF5FHsQlixsRmjKpc8yVixq/RqV/8RPvAk4zQbCrI3sV/Y0BjCHCKSQISzxGShoX/l4VAUreYw0FWAyv1huMC2AnBxvwRB/P/WW5ISwh7Ki0Tu/qdH179cSfJCCh88CneeBUQtaf3uo5png5BRwN1p9Q3fOSzGJ0OgbUaScGojG4I5X7M+BYcUnzzXlGsACWkYR7KVnwBqD9dAa2Z5f22Kxa0UMH+xGt+p4z5BhKofPwpucw9IydkPipba1zxj/3nqUZNzEffHrWd9kumh8VREgf3TwqV5mTBxkKfzd2qLv+2zHC2Hduxqb8XhZ9zsbjLpgQ+WwgO7y/kzoV55XJb9c6e9Lzk7ozQWX5xrUBPt8xJ20+rwTnOjQ0mGD8q1DiEpcS0Vk0JmwDH8z6RLWsOwwgeq9c1rwEik2Ale7dk70ZXi5cc7oCRW1elqW7S6ZXpiDg=
