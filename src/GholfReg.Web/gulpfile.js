@@ -1,157 +1,165 @@
+//https://github.com/luisrudge/generator-simple-aspnet/blob/master/app/templates/src/gulpfile.js
 var gulp = require('gulp'),
-    bower = require('gulp-bower2'),
-    mainBowerFiles = require('main-bower-files'),
     del = require('del'),
     sass = require('gulp-sass'),
     runSequence = require("run-sequence"),
-    watch = require("gulp-watch"),
-    batch = require("gulp-batch"),
     plumber = require("gulp-plumber"),
     rename = require("gulp-rename"),
     jshint = require("gulp-jshint"),
     cssmin = require("gulp-cssmin"),
-    uglify = require("gulp-uglify");
+    uglify = require("gulp-uglify"),
+    babel = require('gulp-babel'),
+    changed = require('gulp-changed'),
+    sourcemaps = require('gulp-sourcemaps'),
+    browserSync = require('browser-sync'),
+    exec = require('child_process'),
+    jspm = require('jspm');
 
 var project = require('./project.json');
+var reload = browserSync.reload;
 
-var paths = {
-    bower: "./bower_components/",
-    webroot: "./" + project.webroot + "/"
-};
-
-paths.lib = paths.webroot + "lib/"
-paths.js = paths.webroot + "js/**/*.js";
-paths.minJs = paths.webroot + "js/**/*.min.js";
-paths.css = paths.webroot + "css/**/*.css";
-paths.minCss = paths.webroot + "css/**/*.min.css";
-paths.sass = paths.webroot + "css/**/*.scss";
-
-gulp.task("clean:lib", function (cb) {
-    del(paths.lib, cb);
-});
-
-gulp.task("clean:css", function (cb) {
-    del(paths.css);
-    del(paths.minCss, cb);
-});
-
-gulp.task("clean:js", function (cb) {
-    del(paths.minJs, cb);
-});
-
-gulp.task("clean", ["clean:lib", "clean:css", "clean:js"]);
-
-gulp.task('bower:install', ['clean'], function () {
-    return bower({
-        directory: paths.bower
-    });
-});
-
-
-/*
-gulp.task('copy:lib', ['clean'], function() {
-    return gulp
-        .src(mainBowerFiles(), {base: paths.bower})
-        .pipe(gulp.dest(paths.lib));
-});
-*/
-
-gulp.task("copy:lib", ["clean:lib"], function () {
-    var bower = {
-        "angular": "angular/angular*.{js,map}",
-        "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
-        "bootstrap-touch-carousel": "bootstrap-touch-carousel/dist/**/*.{js,css}",
-        "hammer.js": "hammer.js/hammer*.{js,map}",
-        "jquery": "jquery/jquery*.{js,map}",
-        "jquery-validation": "jquery-validation/jquery.validate.js",
-        "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.*{js,map}"
-    };
-
-    for (var destinationDir in bower) {
-        gulp.src(paths.bower + bower[destinationDir])
-            .pipe(gulp.dest(paths.lib + destinationDir));
-    }
-});
-
-gulp.task("jshint", function () {
-    gulp.src([paths.js, "!" + paths.minJs])
-        .pipe(jshint())
-        .pipe(jshint.reporter("default"));
-});
-
-gulp.task("jsmin", function () {
-    gulp.src([paths.js, "!" + paths.minJs], { base: "." })
-        .pipe(uglify())
-        .pipe(rename({ suffix: ".min" }))
-        .pipe(gulp.dest("."));
-});
-
-gulp.task("cssmin", function () {
-    gulp.src([paths.css, "!" + paths.minCss], { base: "." })
-        .pipe(cssmin())
-        .pipe(rename({ suffix: ".min" }))
-        .pipe(gulp.dest("."));
-});
-
-gulp.task("sass", function () {
-    gulp.src(paths.sass, { base: "." })
-        .pipe(sass())
-        .pipe(gulp.dest("."));
-});
-
-
-gulp.task('default', ['copy:lib', 'sass'], function() {
-    return;
-});
-
-// for future use
-gulp.task('wiredep', ['copy:lib'], function() {
-    var wiredep = require('wiredep').stream;
-    var options = {
-        directory: paths.bower,
-        client: 'Views/Shared/_Layout.cshtml',
-        ignorePath: /^(\.\.\/)*\.\.\/bower_components/,
-        fileTypes: {
-            html: {
-            replace: {
-                js: '<script src="~/lib{{filePath}}"></script>',
-                css: '<link rel="stylesheet" href="~/lib{{filePath}}" />'
+var opts = {
+    buildFolder: './' + project.webroot + '/',
+    client: {
+        sass: {
+            files: './client/sass/**/*.scss',
+            destFilename: 'style.css'
+        },
+        js: {
+            folder: './client/js/',
+            files: './client/js/**/*.js',
+            destFilename: 'app.js'
+        },
+        html: {
+            files: './client/js/**/*.html'
+        }
+    },
+    server: {
+        cs: {
+            files: '../**/*.cs'
+        },
+        cshtml: {
+            files: '../**/*.cshtml'
+        },
+        dnx: {
+            command: 'kestrel',
+            options: {
+                restore: true,
+                build: false,
+                run: true,
+                cwd: './'
             }
         }
     },
-    };
+    babel: {
+        modules: 'system',
+        moduleIds: false,
+        comments: false,
+        compact: false,
+        stage:2,
+        optional: [
+          "es7.decorators",
+          "es7.classProperties"
+        ]
+    }
+};
 
-    return gulp
-        .src(options.client)
-        .pipe(wiredep(options))
-        .pipe(gulp.dest('Views/Shared'));
+var paths = {
+    webroot: "./" + project.webroot + "/"
+};
+
+
+opts.lib = opts.buildFolder + "lib/"
+opts.js = opts.buildFolder + "js/";
+opts.css = opts.buildFolder + "css/";
+
+
+
+gulp.task('clean', function(cb) {
+    del([opts.lib, opts.js, opts.css], cb);
 });
 
-gulp.task("watch", ["copy:lib", "jshint", "sass"], function () {
-    var onChange = function (file) {
-        console.log(file.event + " of " + file.path + " detected, running tasks...");
-    };
-    // TODO: Use gulp-plumber to deal with errors
-    watch([paths.js, "!" + paths.minJs], batch(function (events, cb) {
-        events.on("data", onChange)
-            .on("end", function () {
-                runSequence("jshint", cb);
-            });
-    }));
-    watch([paths.less], batch(function (events, cb) {
-        events.on("data", onChange)
-            .on("end", function () {
-                runSequence("less", cb);
-            });
-    }));
-    watch(paths.bower, batch(function (events, cb) {
-        events.on("data", onChange)
-            .on("end", function () {
-                runSequence("copy:lib", cb);
-            });
-    }));
+gulp.task('sass', function () {
+    return gulp.src(opts.client.sass.files)
+        .pipe(sass())
+        .pipe(gulp.dest(opts.css))
+        .pipe(browserSync.stream());
 });
 
-gulp.task("pre-publish", function () {
-    runSequence(["clean:js", "clean:css"], "copy:lib", "sass", ["cssmin", "jsmin"]);
+gulp.task('js', function() {
+    return gulp.src(opts.client.js.files)
+        .pipe(plumber())
+        .pipe(changed(opts.js, {extension: '*.js'}))
+        .pipe(sourcemaps.init())
+        .pipe(babel(opts.babel))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(opts.js))
+        .pipe(browserSync.stream());
+
+});
+
+gulp.task('html', function() {
+    return gulp.src(opts.client.html.files)
+        .pipe(changed(opts.js, {extension: '.html'}))
+        .pipe(gulp.dest(opts.js))
+        .pipe(browserSync.stream());
+});
+
+gulp.task('build-client', function(cb) {
+    runSequence('clean', ['sass', 'js', 'html'], cb);
+});
+
+gulp.task('watch', ['build-client'], function(cb) {
+    gulp.watch(opts.client.sass.files, ['sass'], browserSync.reload);
+    gulp.watch(opts.client.js.files, ['js'], browserSync.reload);
+    gulp.watch(opts.client.html.files, ['html'], browserSync.reload);
+});
+
+gulp.task('bs-reload', function(cb) {
+    browserSync.reload();
+});
+
+gulp.task('serve', ['build-client'], function(cb) {
+    //TODO: need to start dnxmon
+    browserSync.init({
+        proxy: 'localhost:5001'
+    });
+
+    runSequence('watch');
+});
+
+//gulp.task('dnx', dnx(opts.server.dnx.command, opts.server.dnx.options));
+
+gulp.task('default', ['watch'], function() {
+    return;
+});
+
+
+gulp.task("pre-publish", ['build-client'], function () {
+    //TODO: minimize, uglify, jspm bundle
+});
+
+gulp.task('jspm:bundle', function (done) {
+
+  jspm.bundle(
+    [
+      'app/*',
+      'aurelia-bootstrapper',
+      'aurelia-http-client',
+      'aurelia-dependency-injection',
+      'aurelia-router',
+      'moment',
+      'lodash',
+      //'babel',
+      //'npm:core-js@0.4.10',
+      //these  below wont be needed in near future as Aurelia team will fix it
+      'github:aurelia/history-browser@0.4.0',
+      'github:aurelia/templating-router@0.12.0',
+      'github:aurelia/templating-resources@0.11.1',
+      'github:aurelia/templating-binding@0.11.0',
+      'github:aurelia/loader-default@0.7.0'
+    ].join(' + '),
+    'wwwroot/build.js',
+    {inject: false}
+  ).then(done);
 });

@@ -14,3 +14,5 @@ node_modules
 bower_components
 **/*/wwwroot/lib
 **/*/wwwroot/jspm_packages
+**/*/wwwroot/css
+**/*/wwwroot/js

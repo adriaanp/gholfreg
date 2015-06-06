@@ -10,7 +10,7 @@
     "publishExclude": [
         "node_modules",
         "bower_components",
-        "wwwroot/css/*.scss",
+		"jspm_packages",
         "**.xproj",
         "**.user",
         "**.vspscc"
@@ -37,6 +37,7 @@
 		"dnxcore50": {}
 	},
     "scripts": {
-        "postrestore": [ "npm install" ]
+		"prepack": ["gulp pre-publish", "jspm install"],
+        "postrestore": [ "npm install", "jspm install", "gulp build-client" ]
     }
 }
