@@ -5,7 +5,7 @@ node_js:
   - 0.12.2
 sudo: false
 before_install:
-  - npm install -g jspm
+  - npm install -g jspm gulp
   - jspm config registries.github.auth $GH_TOKEN
 install: curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | sh && source ~/.dnx/dnvm/dnvm.sh && dnvm upgrade
 script:
