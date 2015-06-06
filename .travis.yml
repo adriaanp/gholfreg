@@ -4,8 +4,9 @@ mono:
 node_js:
   - 0.12.2
 sudo: false  # use the new container-based infrastructure
-install: 
-  - "curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | sh && source ~/.dnx/dnvm/dnvm.sh && dnvm upgrade"
-  - "npm install jspm -g"
+before_install:
+  - "npm install -g jspm"
+  - "jspm config endpoints.github.auth $GH_TOKEN"
+install: curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | sh && source ~/.dnx/dnvm/dnvm.sh && dnvm upgrade
 script:
   - . ./build.sh
